@@ -26,7 +26,7 @@ products.forEach((product) => {
     </div>
 
     <div class="product-quantity-container">
-      <select>
+      <select class = "js-quantity-selector-${product.id}">
         <option selected value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -71,6 +71,11 @@ document.querySelectorAll('.js-add-to-cart').forEach((buttonElement) => {
             }
         });
 
+         //this code is for the select dropdown menu
+         const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
+
+         const quantity = Number(quantitySelector.value);
+
         //if the same product in the cart we just update its quantity here
         if (matchingItem) {
             matchingItem.quantity += 1;
@@ -78,7 +83,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((buttonElement) => {
             //if its not in the cart then we will push the product in the cart
             cart.push({
                 productId: productId,
-                quantity: 1
+                quantity: quantity
             });
         }
 
@@ -89,6 +94,9 @@ document.querySelectorAll('.js-add-to-cart').forEach((buttonElement) => {
         });
 
         document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+
+       
 
         
     });
