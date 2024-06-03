@@ -2,7 +2,7 @@
 let productsHTML = '';
 
 products.forEach((product) => {
-     productsHTML += `
+    productsHTML += `
     <div class="product-container">
     <div class="product-image-container">
       <img class="product-image"
@@ -22,7 +22,7 @@ products.forEach((product) => {
     </div>
 
     <div class="product-price">
-      $${(product.priceCents/100).toFixed(2)}
+      $${(product.priceCents / 100).toFixed(2)}
     </div>
 
     <div class="product-quantity-container">
@@ -47,7 +47,9 @@ products.forEach((product) => {
       Added
     </div>
 
-    <button class="add-to-cart-button button-primary">
+    <button class="add-to-cart-button button-primary 
+    js-add-to-cart"
+    data-product-id = "${product.id}">
       Add to Cart
     </button>
   </div>
@@ -55,3 +57,30 @@ products.forEach((product) => {
 });
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
+
+//here we are making the add to cart button interactive
+document.querySelectorAll('.js-add-to-cart').forEach((buttonElement) => {
+    buttonElement.addEventListener('click', () => {
+        const productId = buttonElement.dataset.productId;
+
+        let matchingItem;
+        cart.forEach((cartItem) => {
+            if (productId === cartItem.productId) {
+                matchingItem = cartItem;
+            }
+        });
+
+        if (matchingItem) {
+            matchingItem.quantity += 1;
+        } else {
+            cart.push({
+                productId: productId,
+                quantity: 1
+            });
+
+        }
+
+        console.log(cart);
+    });
+
+});
