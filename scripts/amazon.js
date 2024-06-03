@@ -1,3 +1,8 @@
+import { cart } from "../data/cart.js";
+import { products } from "../data/products.js";
+
+
+
 //so this products are coming from the product.js file
 let productsHTML = '';
 
