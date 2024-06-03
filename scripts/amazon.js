@@ -42,7 +42,7 @@ products.forEach((product) => {
 
     <div class="product-spacer"></div>
 
-    <div class="added-to-cart">
+    <div class="added-to-cart js-added-to-cart-${product.id}">
       <img src="images/icons/checkmark.png">
       Added
     </div>
@@ -61,7 +61,10 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
 //here we are making the add to cart button interactive
 document.querySelectorAll('.js-add-to-cart').forEach((buttonElement) => {
     buttonElement.addEventListener('click', () => {
+        //const {productId} = buttonElement.dataset
+        //or
         const productId = buttonElement.dataset.productId;
+        
 
         //this will check if the same product is in the cart
         let matchingItem;
@@ -78,12 +81,15 @@ document.querySelectorAll('.js-add-to-cart').forEach((buttonElement) => {
 
         //if the same product in the cart we just update its quantity here
         if (matchingItem) {
-            matchingItem.quantity += 1;
+            matchingItem.quantity += quantity;
         } else {
             //if its not in the cart then we will push the product in the cart
             cart.push({
                 productId: productId,
-                quantity: quantity
+                quantity:quantity
+                //or
+                // productId: productId,
+                // quantity:quantity
             });
         }
 
@@ -94,11 +100,22 @@ document.querySelectorAll('.js-add-to-cart').forEach((buttonElement) => {
         });
 
         document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-
-
-       
-
         
+        
+        //this add the added message above the add to cart button
+        const added = document.querySelector(`.js-added-to-cart-${productId}`);
+
+        added.classList.add('addedMessage');
+        
+        // Clear any existing timeout for this element (optional but recommended)
+        clearTimeout(added.addedMessage);  // Assuming a property is used for tracking
+        
+        added.addedMessage = setTimeout(() => {
+          added.classList.remove('addedMessage');
+          // Optionally, clear the timeout property after removal for future use
+          delete added.addedMessage;
+        }, 2000);
+
     });
 
 });

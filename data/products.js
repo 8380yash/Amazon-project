@@ -656,5 +656,35 @@ const products = [
       "apparel",
       "mens"
     ]
+  },{
+    id:"id456-y623u-89-7866999",
+    image:"images/products/backpack.jpg",
+    name:"BackPack for the school and colleges",
+    rating:{
+      stars:3.5,
+      count:6878
+    },
+    priceCents:7888,
+    keywords:[
+      'schools',
+      'colleges',
+      'office-work',
+      'travelling'
+    ]
+  },
+  {
+    id:"ueidn-899-56-y623u-89-trua753930",
+    image:"images/products/umbrella.jpg",
+    name:"Umbrella For rainy season",
+    rating:{
+      stars:4.5,
+      count:6896
+    },
+    priceCents:5432,
+    keywords:[
+      'Rainy season',
+      'Summer season',
+      'Moonsoon'
+    ]
   }
 ];
