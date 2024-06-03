@@ -63,6 +63,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((buttonElement) => {
     buttonElement.addEventListener('click', () => {
         const productId = buttonElement.dataset.productId;
 
+        //this will check if the same product is in the cart
         let matchingItem;
         cart.forEach((cartItem) => {
             if (productId === cartItem.productId) {
@@ -70,17 +71,26 @@ document.querySelectorAll('.js-add-to-cart').forEach((buttonElement) => {
             }
         });
 
+        //if the same product in the cart we just update its quantity here
         if (matchingItem) {
             matchingItem.quantity += 1;
         } else {
+            //if its not in the cart then we will push the product in the cart
             cart.push({
                 productId: productId,
                 quantity: 1
             });
-
         }
 
-        console.log(cart);
+        //this will increase the cartQuantity(the header).
+        let cartQuantity = 0;
+        cart.forEach((cartItem) => {
+            cartQuantity += cartItem.quantity;
+        });
+
+        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+        
     });
 
 });
