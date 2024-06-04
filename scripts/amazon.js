@@ -64,6 +64,7 @@ products.forEach((product) => {
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 
+updateCartQuantity();
 
 function updateCartQuantity () {
  //this will increase the cartQuantity(the header).
