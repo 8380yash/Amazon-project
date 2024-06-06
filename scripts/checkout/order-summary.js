@@ -2,10 +2,16 @@ import { cart, removeFromCart, UpdateQuantity, updateDeliveryOption } from "../.
 import { products, getProduct } from "../../data/products.js";
 import { formatCurrency } from "./../utils/money.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
-import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOption.js";
+import { calculateDeliveryDate, deliveryOptions, getDeliveryOption } from "../../data/deliveryOption.js";
 import { renderPaymentSummary } from "./payment-summary.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
+
+
+
 
 export function renderOrderSummary() {
+
+  
     let cartSummaryHTML = '';
 
     cart.forEach((cartItem) => {
@@ -36,11 +42,12 @@ export function renderOrderSummary() {
 
                 const deliveryOption = getDeliveryOption(deliveryOptionId);
 
-        const today = dayjs();
-        const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+        // const today = dayjs();
+        // const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+        // const dateString = deliveryDate.format('dddd, MMMM, D');
+                    //OR
 
-        const dateString = deliveryDate.format('dddd, MMMM, D');
-
+                    const dateString = calculateDeliveryDate(deliveryOption);
 
         cartSummaryHTML +=
             `
@@ -97,10 +104,14 @@ export function renderOrderSummary() {
         let html = '';
 
         deliveryOptions.forEach((deliveryOption) => {
-            const today = dayjs();
-            const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+            // const today = dayjs();
+            // const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
 
-            const dateString = deliveryDate.format('dddd, MMMM, D');
+            // const dateString = deliveryDate.format('dddd, MMMM, D');
+                          //OR
+           const dateString =  calculateDeliveryDate(deliveryOption);
+           //
+
             const priceString = deliveryOption.priceCents === 0
                 ? 'Free'
 
@@ -139,10 +150,13 @@ export function renderOrderSummary() {
             const { productId } = link.dataset;
             removeFromCart(productId);
            
-            const container = document.querySelector(`.js-cart-item-container-${productId}`);
+            // const container = document.querySelector(`.js-cart-item-container-${productId}`);
 
-            container.remove();
-            updateCartQuantity();
+            // container.remove();
+            //we are not using the dom for deleting the product we are regenerating the HTML for the ordersummary;
+            // updateCartQuantity();
+            renderCheckoutHeader();
+            renderOrderSummary();
             renderPaymentSummary();
 
 
@@ -156,6 +170,8 @@ export function renderOrderSummary() {
             const container = document.querySelector(`.js-cart-item-container-${productId}`);
 
             container.classList.add('is-editing-quantity');
+
+          
         });
     });
 
@@ -185,7 +201,9 @@ export function renderOrderSummary() {
 
                 quantityLabel.innerHTML = newQuantity;
 
-                updateCartQuantity();
+                // updateCartQuantity();
+                renderCheckoutHeader();
+                renderPaymentSummary();
 
             });
 
@@ -203,17 +221,18 @@ export function renderOrderSummary() {
     });
 
 
-    updateCartQuantity();
+    // updateCartQuantity();
 
-    function updateCartQuantity() {
-        let quantity = 0;
-        cart.forEach((cartItem) => {
-            quantity += cartItem.quantity;
-        });
+    // function updateCartQuantity() {
+        // let quantity = 0;
+        // cart.forEach((cartItem) => {
+        //     quantity += cartItem.quantity;
+        // });
 
-        document.querySelector('.js-home-link').innerHTML =
-            `${quantity} items`;
-    }
+        // document.querySelector('.js-home-link').innerHTML =
+        //     `${quantity} items`;
+           
+    // }
 }
 
 renderOrderSummary();
