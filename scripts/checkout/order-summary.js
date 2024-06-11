@@ -140,7 +140,7 @@ export function renderOrderSummary() {
       
       `
         });
-
+        
         return html
     };
     document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
