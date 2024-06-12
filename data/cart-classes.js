@@ -108,16 +108,3 @@ class Cart {
         console.log(cart);
         console.log(businessCart);
         
-       
-
-
-
-
-
-
-
-
-
-
-
-
