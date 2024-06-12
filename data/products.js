@@ -97,7 +97,8 @@ const product1 = new Product(
   }
 );
 
-
+//  const date = new Date ();
+//  console.log(date.toLocaleString());
 
 
 export const products = [
@@ -797,4 +798,4 @@ export const products = [
 
 });
 
-console.log(products);
+// console.log(products);
