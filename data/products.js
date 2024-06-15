@@ -57,49 +57,28 @@ class Clothing extends Product {
 }
 
 
-//Practice code
-// const tshirt = new Clothing({
-//   id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
-//   image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
-//   name: "Adults Plain Cotton T-Shirt - 2 Pack",
-//   rating: {
-//     stars: 4.5,
-//     count: 56
-//   },
-//   priceCents: 799,
-//   keywords: [
-//     "tshirts",
-//     "apparel",
-//     "mens"
-//   ],
-//   type: "clothing",
-//   sizeChartLink: "images/clothing-size-chart.png"
-// });
+class Appliance extends Product {
+   instructionLink;
+   warrantyLink;
 
-// console.log(tshirt);
-// console.log(tshirt.getPrice());
+   constructor (productDetails){
+    super(productDetails);
+    this.instructionLink = productDetails.instructionLink;
+    this.warrantyLink = productDetails.warrantyLink;
+   }
 
-const product1 = new Product(
-  {
-    id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-    image: "images/products/athletic-cotton-socks-6-pairs.jpg",
-    name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-    rating: {
-      stars: 4.5,
-      count: 87
-    },
-    priceCents: 1090,
-    keywords: [
-      "socks",
-      "sports",
-      "apparel"
-    ]
+   extraInfoHTML () {
+    return `
+    <a href = "${this.instructionLink}" target ="_blank">
+    InstructionLink
+     </a>
+     <a href = "${this.warrantyLink}" target ="_blank">
+    WarrantyLink
+     </a>
+
+     `;
   }
-);
-
-//  const date = new Date ();
-//  console.log(date.toLocaleString());
-
+}
 
 export const products = [
   {
@@ -161,7 +140,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: 'appliance',
+    instructionLink:'images/appliance-instructions.png',
+    warrantyLink:"images/appliance-warranty.png"
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -176,7 +158,10 @@ export const products = [
       "plates",
       "kitchen",
       "dining"
-    ]
+    ],
+    type: 'appliance',
+    instructionLink:'images/appliance-instructions.png',
+    warrantyLink:"images/appliance-warranty.png"
   },
   {
     id: "8c9c52b5-5a19-4bcb-a5d1-158a74287c53",
@@ -363,7 +348,10 @@ export const products = [
       "kitchen",
       "tissues box",
       "napkins"
-    ]
+    ],
+    type: 'appliance',
+    instructionLink:'images/appliance-instructions.png',
+    warrantyLink:"images/appliance-warranty.png"
   },
   {
     id: "a82c6bac-3067-4e68-a5ba-d827ac0be010",
@@ -665,7 +653,10 @@ export const products = [
     keywords: [
       "bedroom",
       "home"
-    ]
+    ],
+    type: 'appliance',
+    instructionLink:'images/appliance-instructions.png',
+    warrantyLink:"images/appliance-warranty.png"
   },
   {
     id: "8a53b080-6d40-4a65-ab26-b24ecf700bce",
@@ -727,7 +718,10 @@ export const products = [
       "baking",
       "cookware",
       "kitchen"
-    ]
+    ],
+    type: 'appliance',
+    instructionLink:'images/appliance-instructions.png',
+    warrantyLink:"images/appliance-warranty.png"
   },
   {
     id: "aaa65ef3-8d6f-4eb3-bc9b-a6ea49047d8f",
@@ -793,6 +787,9 @@ export const products = [
 ].map((productDetails) => {
   if(productDetails.type === 'clothing') {
         return new Clothing(productDetails);
+  }
+  if(productDetails.type === 'appliance'){
+    return new Appliance(productDetails)
   }
   return new Product (productDetails);
 

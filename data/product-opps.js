@@ -68,7 +68,7 @@ export function getProduct (productId) {
       "apparel"
     ]
   });
-  console.log(product1);
+  // console.log(product1);
 
 export const products = [
     {
@@ -767,4 +767,4 @@ export const products = [
    
   });
 
-  console.log(products);
+  // console.log(products);
