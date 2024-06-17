@@ -108,4 +108,12 @@ export function loadCart (fun) {
     xhr.send();
 }
 
+export function loadCartFetch () {
+    fetch('https://supersimplebackend.dev/cart').then((response) => {
+            console.log(response);
+    });
+}
+
+loadCartFetch();
+
 

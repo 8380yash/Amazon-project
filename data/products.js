@@ -90,7 +90,7 @@ export function loadProductsFetch () {
 ).then((response) => {
      return response.json();
   }).then((productsData) => {
-    products =productsData.map((productDetails) => {
+    products = productsData.map((productDetails) => {
       if(productDetails.type === 'clothing') {
             return new Clothing(productDetails);
       }
