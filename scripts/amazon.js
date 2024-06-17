@@ -1,13 +1,14 @@
-import { cart,addToCart } from "../data/cart.js";
-import { products } from "../data/products.js";
+import { cart, addToCart } from "../data/cart.js";
+import { products, loadProducts } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import '../data/product-opps.js';
 
+loadProducts(renderProductsgrid);
+function renderProductsgrid() {
+  //so this products are coming from the product.js file
+  let productsHTML = '';
 
-//so this products are coming from the product.js file
-let productsHTML = '';
-
-products.forEach((product) => {
+  products.forEach((product) => {
     productsHTML += `
     <div class="product-container">
     <div class="product-image-container">
@@ -62,48 +63,50 @@ products.forEach((product) => {
     </button>
   </div>
     `
-});
+  });
 
-document.querySelector('.js-products-grid').innerHTML = productsHTML;
+  document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 
-updateCartQuantity();
+  updateCartQuantity();
 
-function updateCartQuantity () {
- //this will increase the cartQuantity(the header).
- let cartQuantity = 0;
- cart.forEach((cartItem) => {
-     cartQuantity += cartItem.quantity;
- });
+  function updateCartQuantity() {
+    //this will increase the cartQuantity(the header).
+    let cartQuantity = 0;
+    cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quantity;
+    });
 
- document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
- 
-}
-//here we are making the add to cart button interactive
-document.querySelectorAll('.js-add-to-cart').forEach((buttonElement) => {
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+  }
+  //here we are making the add to cart button interactive
+  document.querySelectorAll('.js-add-to-cart').forEach((buttonElement) => {
     buttonElement.addEventListener('click', () => {
-        //const {productId} = buttonElement.dataset
-        //or
-        const productId = buttonElement.dataset.productId;
-        
-        addToCart(productId);
-        updateCartQuantity();
-       
-        
-        //this add the added message above the add to cart button
-        const added = document.querySelector(`.js-added-to-cart-${productId}`);
+      //const {productId} = buttonElement.dataset
+      //or
+      const productId = buttonElement.dataset.productId;
 
-        added.classList.add('addedMessage');
-        
-        // Clear any existing timeout for this element (optional but recommended)
-        clearTimeout(added.addedMessage);  // Assuming a property is used for tracking
-        
-        added.addedMessage = setTimeout(() => {
-          added.classList.remove('addedMessage');
-          // Optionally, clear the timeout property after removal for future use
-          delete added.addedMessage;
-        }, 2000);
+      addToCart(productId);
+      updateCartQuantity();
+
+
+      //this add the added message above the add to cart button
+      const added = document.querySelector(`.js-added-to-cart-${productId}`);
+
+      added.classList.add('addedMessage');
+
+      // Clear any existing timeout for this element (optional but recommended)
+      clearTimeout(added.addedMessage);  // Assuming a property is used for tracking
+
+      added.addedMessage = setTimeout(() => {
+        added.classList.remove('addedMessage');
+        // Optionally, clear the timeout property after removal for future use
+        delete added.addedMessage;
+      }, 2000);
 
     });
 
-});
+  });
+
+}
