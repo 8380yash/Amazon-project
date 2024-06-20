@@ -7,77 +7,78 @@ import { loadCart, loadCartFetch } from "../data/cart.js";
 // import '../data/backend-practice.js';
 
 async function loadPage() {
-   
-        try{
+
+    try {
+        // throw'error1';
+
+        await loadProductsFetch();
+
+        await new Promise((resolve, reject) => {
             // throw'error1';
-
-            await loadProductsFetch();
-
-            await new Promise((resolve, reject) => {
-                // throw'error1';
-                loadCart(() => {
-                    // reject('error3');
-                    resolve('value2');
-                });
+            loadCart(() => {
+            // reject('error3');
+            resolve('value2');
             });
-        } catch (error) {
-                console.log('unexpected error happen. Please try again later after some time')
-        }
-   
+        });
+    } catch (error) {
+        console.log('unexpected error happen. Please try again later after some time')
+    }
+
 
     renderCheckoutHeader();
     renderOrderSummary();
     renderPaymentSummary();
 
-    
+
 };
 loadPage();
 
 
-
-// Promise.all([
-//     loadProductsFetch(),
-//     new Promise((resolve) => {
-//         loadCart(() => {
-//             resolve('value2');
-//         });
-//     })
-// ]).then((values) => {
-//     console.log(values);
-//     renderCheckoutHeader();
-//     renderOrderSummary();
-//     renderPaymentSummary();
-// })
-
-
-// new Promise ((resolve) => {
-// loadProducts(() => {
-//     resolve('value1');
-// });
-
-// }).then((value) => {
-//     console.log(value);
-// return new Promise((resolve) => {
-//     loadCart(() => {
-//             resolve();
-//     });
-//   });
-
-// }).then(() => {
-//     renderCheckoutHeader();
-//     renderOrderSummary();
-//     renderPaymentSummary();
-// })
+/*
+Promise.all([
+    loadProductsFetch(),
+    new Promise((resolve) => {
+        loadCart(() => {
+            resolve('value2');
+        });
+    })
+]).then((values) => {
+    console.log(values);
+    renderCheckoutHeader();
+    renderOrderSummary();
+    renderPaymentSummary();
+})
 
 
+new Promise ((resolve) => {
+loadProducts(() => {
+    resolve('value1');
+});
 
-//callback cause the nesting
-// loadProducts(() => {
-//     loadCart(() => {
-//         renderCheckoutHeader();
-//         renderOrderSummary();
-//         renderPaymentSummary();
-//     });
-// });
+}).then((value) => {
+    console.log(value);
+return new Promise((resolve) => {
+    loadCart(() => {
+            resolve();
+    });
+  });
+
+}).then(() => {
+    renderCheckoutHeader();
+    renderOrderSummary();
+    renderPaymentSummary();
+})
+
+
+
+callback cause the nesting
+loadProducts(() => {
+    loadCart(() => {
+        renderCheckoutHeader();
+        renderOrderSummary();
+        renderPaymentSummary();
+    });
+});
+*/
 
 
