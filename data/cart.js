@@ -108,12 +108,14 @@ export function loadCart (fun) {
     xhr.send();
 }
 
-export function loadCartFetch () {
-    fetch('https://supersimplebackend.dev/cart').then((response) => {
-            console.log(response);
-    });
+export async function loadCartFetch () {
+   const response =  await fetch('https://supersimplebackend.dev/cart');
+
+   const wait = response.text();
+   console.log(wait);
+   return wait;
 }
 
-loadCartFetch();
+
 
 
