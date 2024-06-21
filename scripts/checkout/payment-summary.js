@@ -76,6 +76,7 @@ export function renderPaymentSummary() {
   document.querySelector('.js-payment-summary').innerHTML = 
     paymentSummaryHTML;
 
+   
     document.querySelector('.js-place-order')
     .addEventListener('click', async () => {
       try{
@@ -88,15 +89,15 @@ export function renderPaymentSummary() {
             cart:cart
           })
         });
+       const order = await response.json();
+       addOrder(order);
 
-      const order = await response.json();
-      addOrder(order);
-
-      } catch (error) {
-          console.log('unexpected error happen: Try again later')
+      } catch(error) {
+        console.log('Unexpected error happen:Please try again later')
       }
-       window.location.href = 'orders.html';
+      window.location.href = 'orders.html';
+  
     });
-
+    
  
 };

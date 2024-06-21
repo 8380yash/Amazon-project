@@ -13,51 +13,94 @@
     </div>
 
     <script>
-        // function greetingText() {
-        //  const promise =  fetch('https://supersimplebackend.dev/greeting').then((response) => {
-        //         return response.text();
-        //     }).then((greetingText) => {
-        //         console.log(greetingText);
-        //     });
+        function greetingText() {
+         const promise =  fetch('https://supersimplebackend.dev/greeting').then((response) => {
+                return response.text();
+            }).then((greetingText) => {
+                console.log(greetingText);
+            });
 
-        //     return promise
-        // }
+            return promise
+        }
 
-        // async function greetPage () {
-        //     await greetingText();
+        async function greetPage () {
+            await greetingText();
            
-        // }
+        }
         //   greetPage();
 
 
-    //   async function greeting () {
-    //         const promise = await fetch('https://supersimplebackend.dev/greeting');
+      async function greeting () {
+            const promise = await fetch('https://supersimplebackend.dev/greeting');
 
-    //         const text = await promise.text();
-    //         console.log(text);
-    //     }
+            const text = await promise.text();
+            console.log(text);
+        }
 
-    //     greeting();
+        // greeting();
 
 
 
-        // async function greeting2 () {
-        //     const response = await fetch('https://supersimplebackend.dev/greeting',{
-        //   method:'POST',
-        //   headers:{
-        //     'Content-Type':'application/json'
-        //   },
-        //   body: JSON.stringify({
-        //     name: 'Yash wani'
-        // })
-        // });
+        async function greeting2 () {
+            const response = await fetch('https://supersimplebackend.dev/greeting',{
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body: JSON.stringify({
+            name: 'Yash wani'
+        })
+        });
 
-        // const message = await response.text();
+        const message = await response.text();
 
-        // console.log(message);
-        // }
+        console.log(message);
+        }
 
         // greeting2();
+
+      async function amazon () {
+        try{
+            const wait = await fetch('https://amazon.com')
+            const wait2 = await response;
+            console.log(wait2);
+        }
+        catch(error){
+            console.log('well our code is correct but our request is blocked by the backend of the amazon')
+        }
+          
+        }
+
+        amazon();
+
+       async function superSimple () {
+        try{
+            const dev = await fetch('https://supersimplebackend.dev',{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/text'
+                },
+                body: ''
+            });
+
+        const simple = await dev.text();
+        console.log(dev);
+        if(dev.status >= 400){
+            throw dev;
+        }
+
+        } catch(error) {
+               if(error.status === 400){
+                const errorMessage = await error.json();
+                console.log(errorMessage);
+               } else {
+                console.log('Network error.Please try again after one fucking or you all can just fuck off for now');
+               }
+        }
+         
+        }
+
+        superSimple();
 
 
 
@@ -70,20 +113,20 @@
         // xhr.open('GET', 'https://supersimplebackend.dev/greeting');
         // xhr.send();
 
-        function findLargestIndex (theArray){
-            index = 0;
-            largestValue = theArray[0];
-            for(i = 0; i < theArray.length; i++){
-                if(theArray[i] > largestValue){
-                    index = i;
-                    largestValue = theArray[i];
+        // function findLargestIndex (theArray){
+        //     index = 0;
+        //     largestValue = theArray[0];
+        //     for(i = 0; i < theArray.length; i++){
+        //         if(theArray[i] > largestValue){
+        //             index = i;
+        //             largestValue = theArray[i];
                                       
-                }
-            }
-            return index;
-        }
+        //         }
+        //     }
+        //     return index;
+        // }
 
-        console.log(findLargestIndex([1,6,3,5]));
+        // console.log(findLargestIndex([1,6,3,5]));
     </script>
 </body>
 
