@@ -5,6 +5,7 @@ import '../data/product-opps.js';
 
 loadProducts(renderProductsgrid);
 function renderProductsgrid() {
+  
   //so this products are coming from the product.js file
   let productsHTML = '';
 

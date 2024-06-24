@@ -2,7 +2,8 @@ import { cart } from "../../data/cart.js";
 import { getProduct } from "../../data/product-opps.js";
 import { getDeliveryOption } from "../../data/deliveryOption.js";
 import { formatCurrency } from "../utils/money.js";
-import { addOrder } from "../../data/orders.js";
+import { addOrder,saveToStorage } from "../../data/orders.js";
+import { renderOrders } from "../orders.js";
 
 export function renderPaymentSummary() {
 
@@ -90,11 +91,14 @@ export function renderPaymentSummary() {
           })
         });
        const order = await response.json();
+       
        addOrder(order);
+       console.log(order);
 
       } catch(error) {
         console.log('Unexpected error happen:Please try again later')
       }
+    
       window.location.href = 'orders.html';
   
     });
