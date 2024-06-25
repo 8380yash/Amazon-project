@@ -8,9 +8,7 @@ import { addToCart, cart } from "../data/cart.js";
 export async function renderOrders() {
   await loadProductsFetch();
 
-
   let orderHTML = '';
-
 
   orders.forEach((orderItem) => {
     const orderTimeString = dayjs(orderItem.orderTime).format('MMMM D')
@@ -73,7 +71,7 @@ export async function renderOrders() {
             </div>
 
             <div class="product-actions">
-              <a href="tracking.html">
+              <a href="tracking.html?orderId=${orderItem.id}&productId=${product.id}">
                 <button class="track-package-button button-secondary">
                   Track package
                 </button>
