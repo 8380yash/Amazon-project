@@ -2,8 +2,8 @@ import { cart } from "../../data/cart.js";
 import { getProduct } from "../../data/product-opps.js";
 import { getDeliveryOption } from "../../data/deliveryOption.js";
 import { formatCurrency } from "../utils/money.js";
-import { addOrder,saveToStorage } from "../../data/orders.js";
-import { renderOrders } from "../orders.js";
+import { addOrder } from "../../data/orders.js";
+
 
 export function renderPaymentSummary() {
 
@@ -95,13 +95,20 @@ export function renderPaymentSummary() {
        addOrder(order);
        console.log(order);
 
+      //  localStorage.clear(cart);
+
       } catch(error) {
         console.log('Unexpected error happen:Please try again later')
       }
     
+     
       window.location.href = 'orders.html';
   
     });
+
+    function clearCart () {
+      localStorage.clear(cart);
+    }
     
  
 };

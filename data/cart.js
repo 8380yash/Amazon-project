@@ -33,18 +33,18 @@ export function addToCart (productId) {
     });
 
      //this code is for the select dropdown menu
-     const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
+    //  const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
 
-     const quantity = Number(quantitySelector.value);
+    //  const quantity = Number(quantitySelector.value);
 
     //if the same product in the cart we just update its quantity here
     if (matchingItem) {
-        matchingItem.quantity += quantity;
+        matchingItem.quantity += 1;
     } else {
         //if its not in the cart then we will push the product in the cart
         cart.push({
             productId,
-            quantity,
+            quantity:1,
             deliveryOptionId:'1'
             //or
             // productId: productId,

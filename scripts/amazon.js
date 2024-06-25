@@ -71,7 +71,7 @@ function renderProductsgrid() {
 
   updateCartQuantity();
 
-  function updateCartQuantity() {
+   function updateCartQuantity() {
     //this will increase the cartQuantity(the header).
     let cartQuantity = 0;
     cart.forEach((cartItem) => {

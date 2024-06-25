@@ -233,6 +233,8 @@ export function renderOrderSummary() {
         //     `${quantity} items`;
            
     // }
+   
+
 }
 
 renderOrderSummary();

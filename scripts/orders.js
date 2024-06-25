@@ -1,9 +1,8 @@
 import { orders } from "../data/orders.js";
 import { getProduct, loadProductsFetch,  } from "../data/products.js";
-import { cart } from "../data/cart.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { formatCurrency } from "./utils/money.js";
-import { addToCart } from "../data/cart.js";
+import { addToCart, cart } from "../data/cart.js";
 
 
 export async function renderOrders() {
@@ -92,9 +91,17 @@ export async function renderOrders() {
 
   document.querySelector('.js-order-grid').innerHTML = orderHTML;
 
+
+updateCartQuantity();
+ 
+  
+
   document.querySelectorAll('.js-buy-again').forEach((button) => {
    button.addEventListener('click', () => {
     addToCart(button.dataset.productId);
+    updateCartQuantity();
+
+
     button.innerHTML = 'Added';
     setTimeout(() => {
       button.innerHTML = `
@@ -102,9 +109,21 @@ export async function renderOrders() {
         <span class="buy-again-message">Buy it again</span>
       `;
     }, 1000);
-   })
+   });
+   
    
   });
+  function updateCartQuantity () {
+    let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+   }
+   updateCartQuantity();
+  
+
 }
 
 renderOrders();
