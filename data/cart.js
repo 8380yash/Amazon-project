@@ -116,6 +116,10 @@ export async function loadCartFetch () {
    return wait;
 }
 
+export function resetCart () {
+    cart = [];
+    saveToStorage();
+}
 
 
 

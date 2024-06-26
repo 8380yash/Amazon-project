@@ -9,7 +9,27 @@ function renderProductsgrid() {
   //so this products are coming from the product.js file
   let productsHTML = '';
 
-  products.forEach((product) => {
+     const url = new URL(window.location.href);
+     const search = url.searchParams.get('search');
+
+     let filteredProducts = products;
+
+     if (search) {
+       filteredProducts = products.filter((product) => {
+         if (!product.keywords || !Array.isArray(product.keywords)) {
+           return product.name.toLowerCase().includes(search.toLowerCase());
+         }
+     
+         let matchingKeyword = product.keywords.some((keyword) =>
+           keyword.toLowerCase().includes(search.toLowerCase())
+         );
+     
+         return matchingKeyword || product.name.toLowerCase().includes(search.toLowerCase());
+       });
+     }
+
+
+    filteredProducts.forEach((product) => {
     productsHTML += `
     <div class="product-container">
     <div class="product-image-container">
@@ -108,6 +128,18 @@ function renderProductsgrid() {
 
     });
 
+  });
+
+  document.querySelector('.js-search-button').addEventListener('click', () => {
+    const searchTerm = document.querySelector('.js-search-bar').value;
+    window.location.href = `amazon.html?search=${searchTerm}`;
+  });
+
+  document.querySelector('.js-search-bar').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      const searchTerm = document.querySelector('.js-search-bar').value;
+      window.location.href = `amazon.html?search=${searchTerm}`;
+    }
   });
 
 }

@@ -8,86 +8,78 @@ import { addToCart, cart } from "../data/cart.js";
 export async function renderOrders() {
   await loadProductsFetch();
 
-  let orderHTML = '';
+  let ordersHTML = '';
 
-  orders.forEach((orderItem) => {
-    const orderTimeString = dayjs(orderItem.orderTime).format('MMMM D')
-    orderHTML +=
-      `  <div class="order-container">
-          
-          <div class="order-header">
-            <div class="order-header-left-section">
-              <div class="order-date">
-                <div class="order-header-label">Order Placed:</div>
-                <div>${orderTimeString}</div>
-              </div>
-              <div class="order-total">
-                <div class="order-header-label">Total:</div>
-                <div>$${formatCurrency(orderItem.totalCostCents)}</div>
-              </div>
+  orders.forEach((order) => {
+    const orderTimeString = dayjs(order.orderTime).format('MMMM D');
+
+    ordersHTML += `
+      <div class="order-container">
+        <div class="order-header">
+          <div class="order-header-left-section">
+            <div class="order-date">
+              <div class="order-header-label">Order Placed:</div>
+              <div>${orderTimeString}</div>
             </div>
-
-            <div class="order-header-right-section">
-              <div class="order-header-label">Order ID:</div>
-              <div>${orderItem.id}</div>
+            <div class="order-total">
+              <div class="order-header-label">Total:</div>
+              <div>$${formatCurrency(order.totalCostCents)}</div>
             </div>
           </div>
-
-          <div class="order-details-grid">
-           ${productsListHTML(orderItem)}
+          <div class="order-header-right-section">
+            <div class="order-header-label">Order ID:</div>
+            <div>${order.id}</div>
           </div>
-        </div>`;
-
+        </div>
+        <div class="order-details-grid">
+          ${productsListHTML(order)}
+        </div>
+      </div>
+    `;
   });
 
-  function productsListHTML(orderItem) {
-
+  function productsListHTML(order) {
     let productsListHTML = '';
 
-    orderItem.products.forEach((productDetails) => {
+    order.products.forEach((productDetails) => {
       const product = getProduct(productDetails.productId);
 
-      productsListHTML +=
-        `
-       <div class="product-image-container">
-              <img src="${product.image}">
-            </div>
-
-            <div class="product-details">
-              <div class="product-name">
-                ${product.name}
-              </div>
-              <div class="product-delivery-date">
-                Arriving on: ${dayjs(productDetails.estimatedDeliveryTime).format('MMMM D')}
-              </div>
-              <div class="product-quantity">
-                Quantity: ${productDetails.quantity}
-              </div>
-              <button class="buy-again-button button-primary js-buy-again"
-              data-product-id = "${product.id}">
-                <img class="buy-again-icon" src="images/icons/buy-again.png">
-                <span class="buy-again-message">Buy it again</span>
-              </button>
-            </div>
-
-            <div class="product-actions">
-              <a href="tracking.html?orderId=${orderItem.id}&productId=${product.id}">
-                <button class="track-package-button button-secondary">
-                  Track package
-                </button>
-              </a>
-            </div>
-       
-      `
+      productsListHTML += `
+        <div class="product-image-container">
+          <img src="${product.image}">
+        </div>
+        <div class="product-details">
+          <div class="product-name">
+            ${product.name}
+          </div>
+          <div class="product-delivery-date">
+            Arriving on: ${
+              dayjs(productDetails.estimatedDeliveryTime).format('MMMM D')
+            }
+          </div>
+          <div class="product-quantity">
+            Quantity: ${productDetails.quantity}
+          </div>
+          <button class="buy-again-button button-primary js-buy-again"
+          data-product-id = "${product.id}">
+            <img class="buy-again-icon" src="images/icons/buy-again.png">
+            <span class="buy-again-message">Buy it again</span>
+          </button>
+        </div>
+        <div class="product-actions">
+          <a href="tracking.html?orderId=${order.id}&productId=${product.id}">
+            <button class="track-package-button button-secondary">
+              Track package
+            </button>
+          </a>
+        </div>
+      `;
     });
 
     return productsListHTML;
   }
 
-
-
-
-  document.querySelector('.js-order-grid').innerHTML = orderHTML;
+  document.querySelector('.js-order-grid').innerHTML = ordersHTML;
 
 
 updateCartQuantity();

@@ -16,6 +16,7 @@ export function getProduct (productId) {
     name;
     rating;
     priceCents;
+    keywords;
 
     constructor (productDetails) {
       this.id = productDetails.id;
@@ -23,6 +24,7 @@ export function getProduct (productId) {
       this.name = productDetails.name;
       this.rating = productDetails.rating;
       this.priceCents = productDetails.priceCents;
+      this.keywords = productDetails.keywords;
     }
 
     getStars () {
