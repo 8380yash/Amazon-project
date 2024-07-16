@@ -3,30 +3,25 @@ import { renderPaymentSummary } from "./checkout/payment-summary.js";
 import { renderOrderSummary } from "./checkout/order-summary.js";
 import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCartFetch } from "../data/cart.js";
+// import "../data/cart-classes.js";
 // import '../data/car.js';
 // import '../data/backend-practice.js';
 
 async function loadPage() {
+  try {
+    // throw'error1';
+    await Promise.all([loadProductsFetch(), loadCartFetch()]);
+  } catch (error) {
+    console.log(
+      "unexpected error happen. Please try again later after some time"
+    );
+  }
 
-    try {
-        // throw'error1';
-        await Promise.all([
-            loadProductsFetch(),
-            loadCartFetch()
-        ]);
-    } catch (error) {
-        console.log('unexpected error happen. Please try again later after some time')
-    }
-
-
-    renderCheckoutHeader();
-    renderOrderSummary();
-    renderPaymentSummary();
-
-
-};
+  renderCheckoutHeader();
+  renderOrderSummary();
+  renderPaymentSummary();
+}
 loadPage();
-
 
 /*
 Promise.all([
@@ -73,5 +68,3 @@ loadProducts(() => {
     });
 });
 */
-
-

@@ -1,35 +1,37 @@
 import { cart, addToCart } from "../data/cart.js";
 import { products, loadProducts } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
-import '../data/product-opps.js';
+import "../data/product-opps.js";
+import "../data/product-oops2.js";
 
 loadProducts(renderProductsgrid);
 function renderProductsgrid() {
-  
   //so this products are coming from the product.js file
-  let productsHTML = '';
+  let productsHTML = "";
 
-     const url = new URL(window.location.href);
-     const search = url.searchParams.get('search');
+  const url = new URL(window.location.href);
+  const search = url.searchParams.get("search");
 
-     let filteredProducts = products;
+  let filteredProducts = products;
 
-     if (search) {
-       filteredProducts = products.filter((product) => {
-         if (!product.keywords || !Array.isArray(product.keywords)) {
-           return product.name.toLowerCase().includes(search.toLowerCase());
-         }
-     
-         let matchingKeyword = product.keywords.some((keyword) =>
-           keyword.toLowerCase().includes(search.toLowerCase())
-         );
-     
-         return matchingKeyword || product.name.toLowerCase().includes(search.toLowerCase());
-       });
-     }
+  if (search) {
+    filteredProducts = products.filter((product) => {
+      if (!product.keywords || !Array.isArray(product.keywords)) {
+        return product.name.toLowerCase().includes(search.toLowerCase());
+      }
 
+      let matchingKeyword = product.keywords.some((keyword) =>
+        keyword.toLowerCase().includes(search.toLowerCase())
+      );
 
-    filteredProducts.forEach((product) => {
+      return (
+        matchingKeyword ||
+        product.name.toLowerCase().includes(search.toLowerCase())
+      );
+    });
+  }
+
+  filteredProducts.forEach((product) => {
     productsHTML += `
     <div class="product-container">
     <div class="product-image-container">
@@ -83,27 +85,25 @@ function renderProductsgrid() {
       Add to Cart
     </button>
   </div>
-    `
+    `;
   });
 
-  document.querySelector('.js-products-grid').innerHTML = productsHTML;
-
+  document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
   updateCartQuantity();
 
-   function updateCartQuantity() {
+  function updateCartQuantity() {
     //this will increase the cartQuantity(the header).
     let cartQuantity = 0;
     cart.forEach((cartItem) => {
       cartQuantity += cartItem.quantity;
     });
 
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-
+    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
   }
   //here we are making the add to cart button interactive
-  document.querySelectorAll('.js-add-to-cart').forEach((buttonElement) => {
-    buttonElement.addEventListener('click', () => {
+  document.querySelectorAll(".js-add-to-cart").forEach((buttonElement) => {
+    buttonElement.addEventListener("click", () => {
       //const {productId} = buttonElement.dataset
       //or
       const productId = buttonElement.dataset.productId;
@@ -111,35 +111,33 @@ function renderProductsgrid() {
       addToCart(productId);
       updateCartQuantity();
 
-
       //this add the added message above the add to cart button
       const added = document.querySelector(`.js-added-to-cart-${productId}`);
 
-      added.classList.add('addedMessage');
+      added.classList.add("addedMessage");
 
       // Clear any existing timeout for this element (optional but recommended)
-      clearTimeout(added.addedMessage);  // Assuming a property is used for tracking
+      clearTimeout(added.addedMessage); // Assuming a property is used for tracking
 
       added.addedMessage = setTimeout(() => {
-        added.classList.remove('addedMessage');
+        added.classList.remove("addedMessage");
         // Optionally, clear the timeout property after removal for future use
         delete added.addedMessage;
       }, 2000);
-
     });
-
   });
 
-  document.querySelector('.js-search-button').addEventListener('click', () => {
-    const searchTerm = document.querySelector('.js-search-bar').value;
+  document.querySelector(".js-search-button").addEventListener("click", () => {
+    const searchTerm = document.querySelector(".js-search-bar").value;
     window.location.href = `amazon.html?search=${searchTerm}`;
   });
 
-  document.querySelector('.js-search-bar').addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      const searchTerm = document.querySelector('.js-search-bar').value;
-      window.location.href = `amazon.html?search=${searchTerm}`;
-    }
-  });
-
+  document
+    .querySelector(".js-search-bar")
+    .addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        const searchTerm = document.querySelector(".js-search-bar").value;
+        window.location.href = `amazon.html?search=${searchTerm}`;
+      }
+    });
 }
